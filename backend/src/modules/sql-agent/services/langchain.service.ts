@@ -216,7 +216,7 @@ export class LangChainService {
       The data should be an array of objects where each object represents a row.`,
       schema: z.object({
         data: z
-          .array(z.record(z.unknown()))
+          .array(z.record(z.string(), z.unknown()))
           .min(
             1,
             'You must provide the actual query results data as an array of objects. Each object represents a row from your SQL query results.',
