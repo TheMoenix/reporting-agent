@@ -57,6 +57,7 @@ jobs:
     needs: check-versions
     if: needs.check-versions.outputs.backend-changed == 'true'
     runs-on: ubuntu-latest
+    environment: Docker Hub
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -96,6 +97,7 @@ jobs:
     needs: check-versions
     if: needs.check-versions.outputs.frontend-changed == 'true'
     runs-on: ubuntu-latest
+    environment: Docker Hub
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
