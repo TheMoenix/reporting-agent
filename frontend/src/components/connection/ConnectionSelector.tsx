@@ -43,7 +43,7 @@ function ConnectionSelector({
   };
 
   return (
-    <Space direction="vertical" size="small" style={{ width: "70%" }}>
+    <Space direction="vertical" size="small" style={{ width: "100%" }}>
       <Select
         placeholder="Select a database connection"
         value={selectedConnectionId || activeConnections[0]?._id || null}

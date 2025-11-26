@@ -13,6 +13,7 @@ import {
   MessageOutlined,
   RobotOutlined,
   BulbOutlined,
+  SettingOutlined,
 } from "@ant-design/icons";
 import MessageBubble from "./MessageBubble";
 import ThreadInput from "./ThreadInput";
@@ -67,6 +68,7 @@ function ThreadPanel({
 }: ThreadPanelProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [tipsModalVisible, setTipsModalVisible] = useState(false);
+  const [configModalVisible, setConfigModalVisible] = useState(false);
 
   // Auto-scroll to bottom when new messages are added
   useEffect(() => {
@@ -105,14 +107,13 @@ function ThreadPanel({
             )}
           </Space>
           <Space>
-            <ConnectionSelector
-              selectedConnectionId={selectedConnectionId}
-              onConnectionSelect={onConnectionSelect}
-            />
-            <LLMSelector
-              value={selectedLlmProvider}
-              onChange={onLlmProviderSelect}
-            />
+            <Button
+              type="text"
+              icon={<SettingOutlined />}
+              onClick={() => setConfigModalVisible(true)}
+            >
+              Config
+            </Button>
             <Button
               type="text"
               icon={<BulbOutlined />}
@@ -204,6 +205,41 @@ function ThreadPanel({
         loading={loading}
         disabled={disabled}
       />
+      {/* Config Modal */}
+      <Modal
+        title={
+          <Space>
+            <SettingOutlined style={{ color: "#1890ff" }} />
+            <span>Configuration</span>
+          </Space>
+        }
+        open={configModalVisible}
+        onCancel={() => setConfigModalVisible(false)}
+        footer={[
+          <Button key="cancel" onClick={() => setConfigModalVisible(false)}>
+            Cancel
+          </Button>,
+          <Button
+            key="save"
+            type="primary"
+            onClick={() => setConfigModalVisible(false)}
+          >
+            Save
+          </Button>,
+        ]}
+        width={600}
+      >
+        <Flex vertical gap="large">
+          <ConnectionSelector
+            selectedConnectionId={selectedConnectionId}
+            onConnectionSelect={onConnectionSelect}
+          />
+          <LLMSelector
+            value={selectedLlmProvider}
+            onChange={onLlmProviderSelect}
+          />
+        </Flex>
+      </Modal>
       {/* Tips Modal */}
       <Modal
         title={
